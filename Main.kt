@@ -57,8 +57,8 @@ fun mygithub() {
                 val gamelist = arrayOf(
                     "Dragon Force", "Daytona USA", "Sega Rally Championship", "Sonic R",
                     "Sonic Jam")
+                
                 var i = 0
-
                 do {
                     var found = false
 
@@ -68,7 +68,6 @@ fun mygithub() {
                         found = appendtext(formatteddate, game, gamedesc)
                     }
                     i++
-
                 }while (!found)
 
             } catch (e: FileNotFoundException) {
@@ -86,7 +85,7 @@ fun mygithub() {
             }
 
             //triggers when gamefaqssearch doesn't run
-           if (gamefaqsran == 0) {
+            if (gamefaqsran == 0) {
                 println("Do another search? (y/n)")
                 val restart = readLine()?:0
 
