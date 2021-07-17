@@ -48,7 +48,7 @@ fun mygithub() {
 
         while (running == 1) {
             println("Enter A Sega Saturn Game to look up")
-            //question marks are used as shortcuts for null exception
+            //Elvis operator(?:) is used as shortcuts for null exception
             val game = readLine()?:0
 
             try {
