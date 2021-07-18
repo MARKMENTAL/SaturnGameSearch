@@ -31,6 +31,8 @@ fun gamefaqssearch(gamesearch:String): Int {
     if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
         Desktop.getDesktop().browse(URI("https://gamefaqs.gamespot.com/search?game=$gamesearch"))
     }
+    Desktop.getDesktop().browse(URI( "https://segaretro.org/index.php?search=$gamesearch"))
+    Desktop.getDesktop().browse(URI( "https://www.ebay.com/sch/i.html?_nkw=$gamesearch+Sega+Saturn&ssPageName=GSTL"))
     return 1
 }
 
@@ -44,11 +46,12 @@ fun mygithub() {
 
     fun main() {
         var gamefaqsran = 0
+        var i = 0
         var running = 1
 
         while (running == 1) {
             println("Enter A Sega Saturn Game to look up")
-            //Elvis operator(?:) is used as shortcuts for null exception
+            //Elvis operators are used as shortcuts for null exception
             val game = readLine()?:0
 
             try {
@@ -56,9 +59,8 @@ fun mygithub() {
                 val gamedesc = getdesc(game)
                 val gamelist = arrayOf(
                     "Dragon Force", "Daytona USA", "Sega Rally Championship", "Sonic R",
-                    "Sonic Jam")
-                
-                var i = 0
+                    "Sonic Jam", "World Series Baseball")
+
                 do {
                     var found = false
 
@@ -74,7 +76,7 @@ fun mygithub() {
                 println("$game was not found")
             }
 
-            println("Search for more info about the game on GameFAQS?(y/n)")
+            println("Search for more info about the game on GameFAQS, eBay and SEGA Retro?(y/n)")
             val gamefaqs = readLine()?:0
 
             if (gamefaqs == "y" || gamefaqs == "Y") {
@@ -85,7 +87,7 @@ fun mygithub() {
             }
 
             //triggers when gamefaqssearch doesn't run
-            if (gamefaqsran == 0) {
+           if (gamefaqsran == 0) {
                 println("Do another search? (y/n)")
                 val restart = readLine()?:0
 
@@ -94,7 +96,7 @@ fun mygithub() {
                     println("Check out my Github?(y/n)")
                     val github = readLine()?:0
 
-                    if (github == "Y" || github =="y") {
+                    if (github == "Y" || github == "y" ) {
                         println("Opening my Github...")
                         mygithub()
                     }
@@ -104,8 +106,14 @@ fun mygithub() {
 
             //else to close if gamefaqssearch runs
             else{
-                println("Searching for: $game on Gamefaqs...")
+                println("Searching for: $game on Gamefaqs, eBay and SEGA Retro...")
                 running = 0
             }
         }
     }
+
+
+
+
+
+
