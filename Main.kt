@@ -43,71 +43,81 @@ fun mygithub() {
     }
 }
 
+fun exitsequence(running:Int, gamefaqsran:Int): Int{
+    if(gamefaqsran == 1) {
+        println("Do another search? At the end of the program all searches will be executed (y/n)")
+    }
 
-    fun main() {
-        var gamefaqsran = 0
-        var i = 0
-        var running = 1
+    else{
+        println("Do another search? (y/n)")
+    }
 
-        while (running == 1) {
-            println("Enter A Sega Saturn Game to look up")
-            //Elvis operators are used as shortcuts for null exception
-            val game = readLine()?:0
+    val restart = readLine() ?: 0
+    //running stays with the value of 1 and program restarts if restart !="n"
+    if (restart == "n" || restart == "N") {
+        println("Check out my Github?(y/n)")
+        val github = readLine()?:0
+        if (github == "Y" || github == "y" ) {
+            println("Opening my Github...")
+            mygithub()
+        }
+        return 0
+    }
+    return 1
+}
 
-            try {
-                val formatteddate = getdate()
-                val gamedesc = getdesc(game)
-                val gamelist = arrayOf(
-                    "Dragon Force", "Daytona USA", "Sega Rally Championship", "Sonic R",
-                    "Sonic Jam", "World Series Baseball")
 
-                do {
-                    var found = false
+fun main() {
+    var gamefaqsran = 0
+    var running = 1
 
-                    // checks if game is in the gamelist array
-                    if (game == gamelist[i]) {
-                        //found becomes true when appendtext runs since it returns true
-                        found = appendtext(formatteddate, game, gamedesc)
-                    }
-                    i++
-                }while (!found)
+    while (running == 1) {
+        println("Enter A Sega Saturn Game to look up")
+        //Elvis operators are used as shortcuts for null exception
+        val game = readLine()?:0
 
-            } catch (e: FileNotFoundException) {
-                println("$game was not found")
-            }
+        try {
+            val formatteddate = getdate()
+            val gamedesc = getdesc(game)
+            val gamelist = arrayOf(
+                "Dragon Force", "Daytona USA", "Sega Rally Championship", "Sonic R",
+                "Sonic Jam", "World Series Baseball")
+            var i = 0
 
-            println("Search for more info about the game on GameFAQS, eBay and SEGA Retro?(y/n)")
-            val gamefaqs = readLine()?:0
+            do {
+                var found = false
 
-            if (gamefaqs == "y" || gamefaqs == "Y") {
-                var gamesearch = game.toString()
-                //replacing spaces in game name with "+" so GameFAQS can use the input
-                gamesearch = gamesearch.replace(" ", "+")
-                gamefaqsran = gamefaqssearch(gamesearch)
-            }
-
-            //triggers when gamefaqssearch doesn't run
-           if (gamefaqsran == 0) {
-                println("Do another search? (y/n)")
-                val restart = readLine()?:0
-
-                 //running stays with the value of 1 and program restarts if restart !="n"
-                if (restart == "n" || restart == "N") {
-                    println("Check out my Github?(y/n)")
-                    val github = readLine()?:0
-
-                    if (github == "Y" || github == "y" ) {
-                        println("Opening my Github...")
-                        mygithub()
-                    }
-                    running = 0
+                // checks if game is in the gamelist array
+                if (game == gamelist[i]) {
+                    //found becomes true when appendtext runs since it returns true
+                    found = appendtext(formatteddate, game, gamedesc)
                 }
-            }
+                i++
+            }while (!found)
 
-            //else to close if gamefaqssearch runs
-            else{
-                println("Searching for: $game on Gamefaqs, eBay and SEGA Retro...")
-                running = 0
-            }
+        } catch (e: FileNotFoundException) {
+            println("$game was not found")
+        }
+
+        println("Search for more info about the game on GameFAQS, eBay and SEGA Retro?(y/n)")
+        val gamefaqs = readLine()?:0
+
+        if (gamefaqs == "y" || gamefaqs == "Y") {
+            var gamesearch = game.toString()
+            //replacing spaces in game name with "+" so GameFAQS can use the input
+            gamesearch = gamesearch.replace(" ", "+")
+            gamefaqsran = gamefaqssearch(gamesearch)
+        }
+
+        //triggers when gamefaqssearch doesn't run
+        running = if (gamefaqsran == 0) {
+            exitsequence(running,gamefaqsran)
+        }
+
+        //else to close if gamefaqssearch runs
+        else{
+            println("Searching for: $game on Gamefaqs, eBay and SEGA Retro...")
+            exitsequence(running,gamefaqsran)
         }
     }
+}
