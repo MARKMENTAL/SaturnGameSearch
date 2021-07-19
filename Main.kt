@@ -37,12 +37,6 @@ fun gamefaqssearch(gamesearch:String): Int {
 }
 
 
-fun mygithub() {
-    if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-        Desktop.getDesktop().browse(URI("http://www.github.com/markmental"))
-    }
-}
-
 fun exitsequence(running:Int, gamefaqsran:Int): Int{
     if(gamefaqsran == 1) {
         println("Do another search? At the end of the program all searches will be executed (y/n)")
@@ -53,14 +47,9 @@ fun exitsequence(running:Int, gamefaqsran:Int): Int{
     }
 
     val restart = readLine() ?: 0
+    
     //running stays with the value of 1 and program restarts if restart !="n"
     if (restart == "n" || restart == "N") {
-        println("Check out my Github?(y/n)")
-        val github = readLine()?:0
-        if (github == "Y" || github == "y" ) {
-            println("Opening my Github...")
-            mygithub()
-        }
         return 0
     }
     return 1
